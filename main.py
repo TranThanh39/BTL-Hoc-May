@@ -59,4 +59,3 @@ if __name__=='__main__':
     # data_iris(max_iter=1000, num_of_clus=3, algos_name='pcm', result_name='a')
     # data_binh_thuong(max_iter=1000, num_of_clus=2, algos_name='fcm', result_name='a')
     anh_vien_tham(max_iter=1000, num_of_clus=6, algos_name='fcm', result_name='anh_vien_tham_cac_kieu')
-
