@@ -11,6 +11,16 @@ def scatter_chart(data: pd.DataFrame, centroids, fig_name: str):
                         marker=marker[i], s=100, c=colors[i], label='Centroids')
         plt.xlabel('x')
         plt.ylabel('y')
-        plt.title('Scatter Plot Colored by Cluster')
+        # plt.title('Scatter Plot Colored by Cluster')
         plt.colorbar(label='Cluster')  
         plt.savefig(fig_name)
+
+def scatter2(data):
+        plt.scatter(data['x'], data['y'], c=data['z'])
+        plt.xlabel('x')
+        plt.ylabel('y')
+        # plt.title('Scatter Plot Colored by Cluster')
+        plt.colorbar(label='Cluster')  
+        plt.savefig('hihi')
+
+

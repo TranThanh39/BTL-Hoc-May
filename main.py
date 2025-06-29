@@ -10,7 +10,7 @@ def anh_vien_tham(max_iter, num_of_clus, algos_name, result_name):
     color=np.array([[0, 128, 0, 255],[128, 128, 128, 255],[0, 255, 0, 255],[1, 192, 255, 255],[0, 0, 255, 255],[0, 64, 0, 255]])
     data=imgpr.read_image(mode=1)
     algo=use(algos_name, data=data, max_iter=max_iter, num_of_clus=num_of_clus)
-    imgpr.process(list_u=[algo.u], list_v=[algo.v], num_of_data_site=1, name_output='result/'+result_name+'jpg', color=color)
+    imgpr.process(list_u=[algo.u], list_v=[algo.v], num_of_data_site=1, name_output='result/'+result_name+'.png', color=color)
     
 
 
@@ -23,21 +23,22 @@ def data_binh_thuong(max_iter, num_of_clus, algos_name, result_name):
         data_origin['z']=np.argmax(algo.t, axis=1)
     else:
         data_origin['z']=np.argmax(algo.u, axis=1)
-    show_data.scatter_chart(data=data_origin, centroids=algo.v, fig_name='result/'+result_name+'jpg' )
+    show_data.scatter_chart(data=data_origin, centroids=algo.v, fig_name='result/'+result_name+'.png' )
 
 
-def data_iris(max_iter, num_of_clus, algos_name, result_name):
+def data_iris(data: np.ndarray, max_iter, num_of_clus, algos_name, result_name):
     np.random.seed(42)
-    tmp=load_iris()
-    data, target=tmp['data'], tmp['target']
+    import time
+    start=time.time()
+    
     algo=use(algos_name, data=data, max_iter=max_iter, num_of_clus=num_of_clus)
+    end=time.time()
     if algos_name == 'pcm':
-        validity2(data=data, membership=algo.t, target=target, result_name=result_name)
+        validity2(data=data, membership=algo.t, result_name=result_name, time=end-start, iteration=algo.i)
     else:
-        validity2(data=data, membership=algo.u, target=target, result_name=result_name)
+        validity2(data=data, membership=algo.u, result_name=result_name, time=end-start, iteration=algo.i)
 
-
-
+# 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s
 
 if __name__=='__main__':
 
@@ -54,8 +55,12 @@ if __name__=='__main__':
         #algos_name là thuật toán muốn sử dụng (một trong 3 cái fcm, pcm, pfcm)
         #result_name là tên của ảnh kêt quả đầu ra (kết quả đầu ra nằm trong folder result)
 
+    # tmp=load_iris()
+    # data=tmp['data']
 
+    tmp=pd.read_excel("data/Dry_Bean_Dataset.xlsx")
+    data, target=np.array(tmp.iloc[:, 0:16]), pd.factorize(np.array(tmp.iloc[:,16]))[0]
 
-    # data_iris(max_iter=1000, num_of_clus=3, algos_name='pcm', result_name='a')
-    # data_binh_thuong(max_iter=1000, num_of_clus=2, algos_name='fcm', result_name='a')
-    anh_vien_tham(max_iter=1000, num_of_clus=6, algos_name='fcm', result_name='anh_vien_tham_cac_kieu')
+    data_iris(data=data, max_iter=1000, num_of_clus=6, algos_name='pcm', result_name='a')
+    # data_binh_thuong(max_iter=1000, num_of_clus=2, algos_name='pfcm', result_name='a')
+    # anh_vien_tham(max_iter=1000, num_of_clus=6, algos_name='fcm', result_name='anh_vt')

@@ -48,20 +48,22 @@ class fcm():
 
             tmp2=np.linalg.norm(self.u-old_u, ord=2)
             if tmp2<self.eps:
+                self.i=i
                 return self.u, self.v, i
+        self.i=i
         return self.u, self.v, i
-    
 
 if __name__=='__main__':
     np.random.seed(42)
     data_origin=pd.read_csv('data/data2.csv')
     data, target=np.array(data_origin.iloc[:, 0:2]), pd.factorize(np.array(data_origin.iloc[:,2]))[0]
-    fcm_object=fcm(data=data, max_iter=1000, num_of_clus=2, eps=1e-3, m=2)
+    fcm_object=fcm(data=data, max_iter=1000, num_of_clus=2, eps=1e-4, m=2)
     fcm_object.fit()
 
     data_origin['z']=np.argmax(fcm_object.u, axis=1)
-    
-    show_data.scatter_chart(data=data_origin, centroids=fcm_object.v.T, fig_name='nhapfcm.png' )
+    # show_data.scatter2(data=data_origin)
+    # exit()
+    show_data.scatter_chart(data=data_origin, centroids=fcm_object.v, fig_name='nhapfcm.png' )
 
     
     

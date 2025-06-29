@@ -51,7 +51,9 @@ class pcm():
             self.v=self.update_v()
             tmp2=np.linalg.norm(self.v-old_v)
             if tmp2<self.eps:
+                self.i=i
                 return i
+        self.i=i
         return i
     
 

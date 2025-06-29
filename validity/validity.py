@@ -111,7 +111,7 @@ def davies_bouldin(data: np.ndarray, labels: np.ndarray) -> float:
 # PCI fuzzy
 def partition_coefficient(membership: np.ndarray) -> float:
     N, C = membership.shape
-    _pc = np.sum(np.square(membership)) / N  # PC fuzzy
+    _pc = np.sum(np.square(membership)) / N  # PC fuzzyS
     _1dc = 1/C
     return (_pc - _1dc) / (1 - _1dc)
 
