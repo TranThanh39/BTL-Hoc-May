@@ -61,6 +61,6 @@ if __name__=='__main__':
     tmp=pd.read_excel("data/Dry_Bean_Dataset.xlsx")
     data, target=np.array(tmp.iloc[:, 0:16]), pd.factorize(np.array(tmp.iloc[:,16]))[0]
 
-    data_iris(data=data, max_iter=1000, num_of_clus=6, algos_name='pcm', result_name='a')
+    data_iris(data=data, max_iter=1000, num_of_clus=16, algos_name='fcm', result_name='a')
     # data_binh_thuong(max_iter=1000, num_of_clus=2, algos_name='pfcm', result_name='a')
-    # anh_vien_tham(max_iter=1000, num_of_clus=6, algos_name='fcm', result_name='anh_vt')
+    # anh_vien_tham(max_iter=1000, num_of_clus=6, algos_name='fcm', result_name='anh_vt')S

@@ -30,13 +30,14 @@ def use(name, data, max_iter, num_of_clus):
 
 
 def validity2( data: np.ndarray, membership: np.ndarray, result_name: str, time, iteration):
-    tmp=pd.DataFrame(columns=["Iters", "Time", "DB", "PC", "CE"])
+    tmp=pd.DataFrame(columns=["Iters", "Time", "DB", "PC", "DI"])
     tmp2=[]
+    labels=np.argmax(membership, axis=1)
     tmp2.append(iteration)
     tmp2.append('{:.5f}'.format(time))
-    tmp2.append(validity.davies_bouldin(data, np.argmax(membership, axis=1)))
+    tmp2.append(validity.davies_bouldin(data, labels=labels))
     tmp2.append(validity.partition_coefficient(membership))
-    tmp2.append(validity.classification_entropy(membership))
+    tmp2.append(validity.dunn_fast(membership, labels=labels))
     tmp.loc[len(tmp)]=tmp2
     tmp.to_csv('result/'+result_name+'.csv')
     print(tmp)
